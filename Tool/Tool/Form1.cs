@@ -13,8 +13,10 @@ namespace Tool
 {
     public partial class Form1 : Form
     {
+        // Core Project에서 빌드한 DLL을 이용해 외부 함수 사용을 위한 클래스
         public class DirectX
         {
+            // Calling Convention을 맞춰준다
             [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
             public static extern void InitD3D(Int32 hWnd);
 
