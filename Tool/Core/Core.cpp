@@ -135,19 +135,53 @@ VOID Cleanup()
 }
 
 
+VOID MatrixRotate(D3DXMATRIX *pOut, CONST float rx, CONST float ry, CONST float rz)
+{
+	D3DXMATRIXA16 result, matRot;
+	D3DXMatrixIdentity(&result);
 
+	D3DXMatrixRotationX(&matRot, rx);
+	D3DXMatrixMultiply(&result, &result, &matRot);
+
+	D3DXMatrixRotationY(&matRot, ry);
+	D3DXMatrixMultiply(&result, &result, &matRot);
+
+	D3DXMatrixRotationZ(&matRot, rz);
+	D3DXMatrixMultiply(&result, &result, &matRot);
+
+	*pOut = result;
+}
 //-----------------------------------------------------------------------------
 // Name: SetupMatrices()
 // Desc: Sets up the world, view, and projection transform matrices.
 //-----------------------------------------------------------------------------
-VOID SetupMatrices()
+VOID SetupMatrices(float tx, float ty, float tz, float rx, float ry, float rz)
 {
 	// Set up world matrix
-	D3DXMATRIXA16 matWorld;
+	D3DXMATRIXA16 matWorld, matRot, matTrans;
 	D3DXMatrixIdentity(&matWorld);
-	D3DXMatrixRotationX(&matWorld, timeGetTime() / 500.0f);
-	g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld);
 
+	MatrixRotate(&matRot, rx, ry, rz);
+	D3DXMatrixMultiply(&matWorld, &matWorld, &matRot);
+
+// 	D3DXMatrixRotationX(&matRot, rx * timeGetTime()/1000.f);
+// 	D3DXMatrixMultiply(&matWorld, &matWorld, &matRot);
+// 
+// 	D3DXMatrixRotationY(&matRot, ry * timeGetTime() / 1000.f);
+// 	D3DXMatrixMultiply(&matWorld, &matWorld, &matRot);
+// 
+// 	D3DXMatrixRotationZ(&matRot, rz * timeGetTime() / 1000.f);
+// 	D3DXMatrixMultiply(&matWorld, &matWorld, &matRot);
+// 
+	D3DXMatrixTranslation(&matTrans, tx, ty, tz);
+	D3DXMatrixMultiply(&matWorld, &matTrans, &matWorld);
+
+	//D3DXMatrixRotationX(&matWorld, timeGetTime() / 500.0f);
+	g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld);	
+}
+
+void SetupCamera()
+{
 	// Set up our view matrix. A view matrix can be defined given an eye point,
 	// a point to lookat, and a direction for which way is up. Here, we set the
 	// eye five units back along the z-axis and up three units, look at the
@@ -169,9 +203,6 @@ VOID SetupMatrices()
 	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f);
 	g_pd3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 }
-
-
-
 
 //-----------------------------------------------------------------------------
 // Name: SetupLights()
@@ -200,9 +231,10 @@ VOID SetupLights()
 	light.Diffuse.r = 1.0f;
 	light.Diffuse.g = 1.0f;
 	light.Diffuse.b = 1.0f;
-	vecDir = D3DXVECTOR3(cosf(timeGetTime() / 350.0f),
-		1.0f,
-		sinf(timeGetTime() / 350.0f));
+// 	vecDir = D3DXVECTOR3(cosf(timeGetTime() / 350.0f),
+// 		1.0f,
+// 		sinf(timeGetTime() / 350.0f));
+	vecDir = D3DXVECTOR3(-3.f, 1.0f, 0.f);
 	D3DXVec3Normalize((D3DXVECTOR3*)&light.Direction, &vecDir);
 	light.Range = 1000.0f;
 	g_pd3dDevice->SetLight(0, &light);
@@ -215,36 +247,28 @@ VOID SetupLights()
 
 
 
-
-//-----------------------------------------------------------------------------
-// Name: Render()
-// Desc: Draws the scene
-//-----------------------------------------------------------------------------
-VOID Render()
+bool BeginScene()
 {
 	// Clear the backbuffer and the zbuffer
 	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 		D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
 
-	// Begin the scene
 	if (SUCCEEDED(g_pd3dDevice->BeginScene()))
-	{
-		// Setup the Lights and materials
-		SetupLights();
+		return true;
 
-		// Setup the world, view, and projection matrices
-		SetupMatrices();
-
-		// Render the vertex buffer contents
-		g_pd3dDevice->SetStreamSource(0, g_pVB, 0, sizeof(CUSTOMVERTEX));
-		g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
-		g_pd3dDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2 * 50 - 2);
-
-		// End the scene
-		g_pd3dDevice->EndScene();
-	}
+	return false;
+}
+VOID EndScene()
+{
+	g_pd3dDevice->EndScene();
 
 	// Present the backbuffer contents to the display
 	g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
+void DrawCylinder()
+{
+	g_pd3dDevice->SetStreamSource(0, g_pVB, 0, sizeof(CUSTOMVERTEX));
+	g_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX);
+	g_pd3dDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2 * 50 - 2);
+}
