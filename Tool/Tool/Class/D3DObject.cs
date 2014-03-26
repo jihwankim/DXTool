@@ -12,6 +12,41 @@ namespace Tool
         public VECTOR3(float vx, float vy, float vz) { x = vx; y = vy; z = vz; }//{ _x = vx; _y = vy; _z = vz; }
 
         public float x, y, z;
+        public void Set(float vx, float vy, float vz)
+        {
+            x = vx;
+            y = vy;
+            z = vz;
+        }
+        public void Add(float vx, float vy, float vz)
+        {
+            x += vx;
+            y += vy;
+            z += vz;
+        }
+        public void Multi(float vx, float vy, float vz)
+        {
+            x *= vx;
+            y *= vy;
+            z *= vz;
+        }
+        public float GetLength()
+        {
+            return (float)Math.Sqrt(Math.Pow(x, 2.0f) + Math.Pow(y, 2.0f) + Math.Pow(z, 2.0f));
+        }
+        static public VECTOR3 CrossProduct(VECTOR3 a, VECTOR3 b)
+        {
+            float len;
+            VECTOR3 result = new VECTOR3();
+            result.x = a.y * b.z - a.z * b.y;
+            result.y = -a.x * b.z + a.z * b.x;
+
+            result.z = a.x * b.y - a.y * b.x;
+
+            len = result.GetLength();
+            result.Multi(1 / len, 1 / len, 1 / len);
+            return result;
+        }
         //private float _x, _y, _z;
 //         public float x
 //         {
@@ -49,13 +84,57 @@ namespace Tool
         public CAMERA(float ex, float ey, float ez, float lx, float ly, float lz, float ux, float uy, float uz)
         {
             EYE = new VECTOR3(ex, ey, ez);
-            LOOKAT = new VECTOR3(lx, ly, lz);
+            TARGET = new VECTOR3(lx, ly, lz);
             UP = new VECTOR3(ux, uy, uz);
+            LOOK = new VECTOR3();
+            RIGHT = new VECTOR3();
+
+            UpdateLook();
+        }
+        public void Move(float x, float y, float z)
+        {
+            EYE.Add(x, y, z);
+            TARGET.Add(x, y, z);
+            /*
+            EYE.x += x;
+            TARGET.x += x;
+
+            EYE.y += y;
+            TARGET.y += y;
+
+            EYE.z += z;
+            TARGET.z += z;*/
+        }
+        public void Rotate(float x, float y, float z)
+        {
+            TARGET.Add(x, y, z);
+            UpdateLook();
+            /*
+            TARGET.x += x;
+            TARGET.y += y;
+            TARGET.z += z;
+            */
+        }
+        private void UpdateLook()
+        {
+          
+            float x, y, z;
+
+            x = TARGET.x - EYE.x;
+            y = TARGET.y - EYE.y;
+            z = TARGET.z - EYE.z;
+           
+
+            //float len = (float)Math.Sqrt(Math.Pow(x, 2.0f) + Math.Pow(y, 2.0f) + Math.Pow(z, 2.0f));
+            float len = Math.Abs(TARGET.GetLength() - EYE.GetLength());
+            LOOK.Set(x / len, y / len, z / len);
         }
 
         public VECTOR3 EYE;// = new VECTOR3();
-        public VECTOR3 LOOKAT;// = new VECTOR3();
+        public VECTOR3 TARGET;// = new VECTOR3();
         public VECTOR3 UP;// = new VECTOR3();
+        public VECTOR3 LOOK;// = new VECTOR3();
+        public VECTOR3 RIGHT;// = new VECTOR3();
     }
 
     // Object

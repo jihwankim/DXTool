@@ -1,6 +1,6 @@
 ﻿namespace Tool
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -232,7 +232,7 @@
             this.qwdwqdToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.qwdwqdToolStripMenuItem.Text = "qwdwqd";
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -240,9 +240,11 @@
             this.Controls.Add(this.View);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
-            this.Name = "Form1";
+            this.KeyPreview = true;
+            this.Name = "Main";
             this.Text = "짱지환짱";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Release);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyboardInput);
             ((System.ComponentModel.ISupportInitialize)(this.View)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);

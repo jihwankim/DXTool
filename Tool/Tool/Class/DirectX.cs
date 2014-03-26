@@ -45,7 +45,7 @@ namespace Tool
         }
         public static void SetupCamera(CAMERA camera)
         {
-            SetupCamera(camera.EYE.x, camera.EYE.y, camera.EYE.z, camera.LOOKAT.x, camera.LOOKAT.y, camera.LOOKAT.z, camera.UP.x, camera.UP.y, camera.UP.z);
+            SetupCamera(camera.EYE.x, camera.EYE.y, camera.EYE.z, camera.TARGET.x, camera.TARGET.y, camera.TARGET.z, camera.UP.x, camera.UP.y, camera.UP.z);
         }
     }
 }
