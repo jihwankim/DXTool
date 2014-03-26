@@ -37,7 +37,7 @@ namespace Tool
                 //float a = -400.0f, b = -300.0f;
                 float a = -100.0f, b = 75.0f;
 
-                g_camera.Rotate((initX - e.X) / a, (e.Y - initY) / b, 0.0f);
+                g_camera.Rotate((e.X - initX) / a, (e.Y - initY) / b, 0.0f);
 
                 initX = e.X;
                 initY = e.Y;
