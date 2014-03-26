@@ -13,7 +13,8 @@ namespace Tool
     public partial class Main : Form
     {
         bool g_IsRunning = true;
-        CAMERA g_camera = new CAMERA(0.0f, 3.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        //CAMERA g_camera = new CAMERA(0.0f, 0.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        CAMERA g_camera = new CAMERA(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f);
 
         public Main()
         {
@@ -44,6 +45,7 @@ namespace Tool
             return result;
         }
 
+        float ssss = 0.0f;
         private async void Render()
         {
             D3DObject Cylinder = new D3DObject(0);
@@ -61,6 +63,13 @@ namespace Tool
                 DirectX.DrawCylinder();
 
                 DirectX.EndScene();
+
+
+                //g_camera.TARGET.Set(0, (float)Math.Pow(Math.Sin(ssss), 2.0f), (float)Math.Acos(Math.Sqrt(1 - Math.Pow(Math.Sin(ssss), 2.0f))));
+                //g_camera.Rotate(0, -0.01f, 0);
+                //g_camera.TARGET.Add(0, -0.01f, 0);
+                //g_camera.TARGET.Normalize();
+                ssss += 0.01f;
 
                 await Task.Delay(10);
             }

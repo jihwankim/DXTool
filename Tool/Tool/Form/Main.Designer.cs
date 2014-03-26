@@ -60,6 +60,9 @@
             this.View.Size = new System.Drawing.Size(400, 300);
             this.View.TabIndex = 0;
             this.View.TabStop = false;
+            this.View.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ViewMouseDown);
+            this.View.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ViewMouseMove);
+            this.View.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ViewMouseUp);
             // 
             // groupBox1
             // 
@@ -94,7 +97,7 @@
             this.CylinderPosY.Name = "CylinderPosY";
             this.CylinderPosY.Size = new System.Drawing.Size(40, 21);
             this.CylinderPosY.TabIndex = 3;
-            this.CylinderPosY.Text = "0";
+            this.CylinderPosY.Text = "-3";
             this.CylinderPosY.TextChanged += new System.EventHandler(this.IsNumber);
             // 
             // CylinderPosZ
@@ -204,7 +207,7 @@
             this.CylinderRotateX.Name = "CylinderRotateX";
             this.CylinderRotateX.Size = new System.Drawing.Size(40, 21);
             this.CylinderRotateX.TabIndex = 1;
-            this.CylinderRotateX.Text = "0.01";
+            this.CylinderRotateX.Text = "0.0";
             this.CylinderRotateX.TextChanged += new System.EventHandler(this.IsNumber);
             // 
             // label2

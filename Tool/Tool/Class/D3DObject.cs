@@ -47,6 +47,11 @@ namespace Tool
             result.Multi(1 / len, 1 / len, 1 / len);
             return result;
         }
+        public void Normalize()
+        {
+            float len = this.GetLength();
+            this.Set(x / len, y / len, z / len);
+        }
         //private float _x, _y, _z;
 //         public float x
 //         {
@@ -87,7 +92,6 @@ namespace Tool
             TARGET = new VECTOR3(lx, ly, lz);
             UP = new VECTOR3(ux, uy, uz);
             LOOK = new VECTOR3();
-            RIGHT = new VECTOR3();
 
             UpdateLook();
         }
@@ -95,46 +99,26 @@ namespace Tool
         {
             EYE.Add(x, y, z);
             TARGET.Add(x, y, z);
-            /*
-            EYE.x += x;
-            TARGET.x += x;
-
-            EYE.y += y;
-            TARGET.y += y;
-
-            EYE.z += z;
-            TARGET.z += z;*/
         }
         public void Rotate(float x, float y, float z)
         {
             TARGET.Add(x, y, z);
+
+           // UP.Add(x, y, z);
+            //UP.Normalize();
+
             UpdateLook();
-            /*
-            TARGET.x += x;
-            TARGET.y += y;
-            TARGET.z += z;
-            */
         }
-        private void UpdateLook()
+        public void UpdateLook()
         {
-          
-            float x, y, z;
-
-            x = TARGET.x - EYE.x;
-            y = TARGET.y - EYE.y;
-            z = TARGET.z - EYE.z;
-           
-
-            //float len = (float)Math.Sqrt(Math.Pow(x, 2.0f) + Math.Pow(y, 2.0f) + Math.Pow(z, 2.0f));
-            float len = Math.Abs(TARGET.GetLength() - EYE.GetLength());
-            LOOK.Set(x / len, y / len, z / len);
+            LOOK.Set(TARGET.x - EYE.x, TARGET.y - EYE.y, TARGET.z - EYE.z);
+            LOOK.Normalize();
         }
 
-        public VECTOR3 EYE;// = new VECTOR3();
-        public VECTOR3 TARGET;// = new VECTOR3();
-        public VECTOR3 UP;// = new VECTOR3();
-        public VECTOR3 LOOK;// = new VECTOR3();
-        public VECTOR3 RIGHT;// = new VECTOR3();
+        public VECTOR3 EYE;//    EYE's Position
+        public VECTOR3 TARGET;// Target's Position
+        public VECTOR3 UP;//     EYE's UP Vector
+        public VECTOR3 LOOK;//   Direction Vector between EYE - TARGET
     }
 
     // Object
