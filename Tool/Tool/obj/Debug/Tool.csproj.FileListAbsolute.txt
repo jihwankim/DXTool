@@ -1,0 +1,17 @@
+C:\Users\kim jihwan\Desktop\TEST\DXTool\Tool\Debug\Tool.exe.config
+C:\Users\kim jihwan\Desktop\TEST\DXTool\Tool\Debug\Tool.exe
+C:\Users\kim jihwan\Desktop\TEST\DXTool\Tool\Debug\Tool.pdb
+C:\Users\kim jihwan\Desktop\TEST\DXTool\Tool\Tool\obj\Debug\Tool.Properties.Resources.resources
+C:\Users\kim jihwan\Desktop\TEST\DXTool\Tool\Tool\obj\Debug\Tool.csproj.GenerateResource.Cache
+C:\Users\kim jihwan\Desktop\TEST\DXTool\Tool\Tool\obj\Debug\Tool.exe
+C:\Users\kim jihwan\Desktop\TEST\DXTool\Tool\Tool\obj\Debug\Tool.pdb
+C:\Users\kim jihwan\Desktop\TEST\DXTool\Tool\Tool\obj\Debug\Tool.Form1.resources
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Debug\Tool.exe.config
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Tool\obj\Debug\Tool.exe
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Tool\obj\Debug\Tool.csprojResolveAssemblyReference.cache
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Tool\obj\Debug\Tool.Form1.resources
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Tool\obj\Debug\Tool.Properties.Resources.resources
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Tool\obj\Debug\Tool.csproj.GenerateResource.Cache
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Debug\Tool.exe
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Debug\Tool.pdb
+C:\Users\TaekSoon\Desktop\지환\DXTool\Tool\Tool\obj\Debug\Tool.pdb

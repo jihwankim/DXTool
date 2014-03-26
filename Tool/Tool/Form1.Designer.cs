@@ -44,15 +44,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.CylinderRotateX = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.qwdwqdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.View)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // View
             // 
-            this.View.Location = new System.Drawing.Point(0, 0);
+            this.View.Location = new System.Drawing.Point(0, 30);
             this.View.Name = "View";
             this.View.Size = new System.Drawing.Size(400, 300);
             this.View.TabIndex = 0;
@@ -62,7 +65,7 @@
             // 
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Location = new System.Drawing.Point(406, 12);
+            this.groupBox1.Location = new System.Drawing.Point(406, 30);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(166, 123);
             this.groupBox1.TabIndex = 1;
@@ -77,9 +80,9 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.CylinderPosX);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(68, 20);
+            this.groupBox3.Location = new System.Drawing.Point(80, 20);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(66, 97);
+            this.groupBox3.Size = new System.Drawing.Size(70, 97);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Position";
@@ -87,22 +90,22 @@
             // CylinderPosY
             // 
             this.CylinderPosY.Location = new System.Drawing.Point(25, 43);
-            this.CylinderPosY.MaxLength = 2;
+            this.CylinderPosY.MaxLength = 4;
             this.CylinderPosY.Name = "CylinderPosY";
-            this.CylinderPosY.Size = new System.Drawing.Size(25, 21);
+            this.CylinderPosY.Size = new System.Drawing.Size(40, 21);
             this.CylinderPosY.TabIndex = 3;
             this.CylinderPosY.Text = "0";
-            this.CylinderPosY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IsNumber);
+            this.CylinderPosY.TextChanged += new System.EventHandler(this.IsNumber);
             // 
             // CylinderPosZ
             // 
             this.CylinderPosZ.Location = new System.Drawing.Point(25, 70);
-            this.CylinderPosZ.MaxLength = 2;
+            this.CylinderPosZ.MaxLength = 4;
             this.CylinderPosZ.Name = "CylinderPosZ";
-            this.CylinderPosZ.Size = new System.Drawing.Size(25, 21);
+            this.CylinderPosZ.Size = new System.Drawing.Size(40, 21);
             this.CylinderPosZ.TabIndex = 5;
             this.CylinderPosZ.Text = "0";
-            this.CylinderPosZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IsNumber);
+            this.CylinderPosZ.TextChanged += new System.EventHandler(this.IsNumber);
             // 
             // label4
             // 
@@ -125,12 +128,12 @@
             // CylinderPosX
             // 
             this.CylinderPosX.Location = new System.Drawing.Point(25, 16);
-            this.CylinderPosX.MaxLength = 2;
+            this.CylinderPosX.MaxLength = 4;
             this.CylinderPosX.Name = "CylinderPosX";
-            this.CylinderPosX.Size = new System.Drawing.Size(25, 21);
+            this.CylinderPosX.Size = new System.Drawing.Size(40, 21);
             this.CylinderPosX.TabIndex = 1;
             this.CylinderPosX.Text = "0";
-            this.CylinderPosX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IsNumber);
+            this.CylinderPosX.TextChanged += new System.EventHandler(this.IsNumber);
             // 
             // label6
             // 
@@ -151,7 +154,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(6, 20);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(56, 97);
+            this.groupBox2.Size = new System.Drawing.Size(70, 97);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Rotate";
@@ -159,22 +162,22 @@
             // CylinderRotateY
             // 
             this.CylinderRotateY.Location = new System.Drawing.Point(25, 43);
-            this.CylinderRotateY.MaxLength = 2;
+            this.CylinderRotateY.MaxLength = 4;
             this.CylinderRotateY.Name = "CylinderRotateY";
-            this.CylinderRotateY.Size = new System.Drawing.Size(25, 21);
+            this.CylinderRotateY.Size = new System.Drawing.Size(40, 21);
             this.CylinderRotateY.TabIndex = 3;
             this.CylinderRotateY.Text = "0";
-            this.CylinderRotateY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IsNumber);
+            this.CylinderRotateY.TextChanged += new System.EventHandler(this.IsNumber);
             // 
             // CylinderRotateZ
             // 
             this.CylinderRotateZ.Location = new System.Drawing.Point(25, 70);
-            this.CylinderRotateZ.MaxLength = 2;
+            this.CylinderRotateZ.MaxLength = 4;
             this.CylinderRotateZ.Name = "CylinderRotateZ";
-            this.CylinderRotateZ.Size = new System.Drawing.Size(25, 21);
+            this.CylinderRotateZ.Size = new System.Drawing.Size(40, 21);
             this.CylinderRotateZ.TabIndex = 5;
             this.CylinderRotateZ.Text = "0";
-            this.CylinderRotateZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IsNumber);
+            this.CylinderRotateZ.TextChanged += new System.EventHandler(this.IsNumber);
             // 
             // label1
             // 
@@ -197,12 +200,12 @@
             // CylinderRotateX
             // 
             this.CylinderRotateX.Location = new System.Drawing.Point(25, 16);
-            this.CylinderRotateX.MaxLength = 2;
+            this.CylinderRotateX.MaxLength = 4;
             this.CylinderRotateX.Name = "CylinderRotateX";
-            this.CylinderRotateX.Size = new System.Drawing.Size(25, 21);
+            this.CylinderRotateX.Size = new System.Drawing.Size(40, 21);
             this.CylinderRotateX.TabIndex = 1;
-            this.CylinderRotateX.Text = "0";
-            this.CylinderRotateX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IsNumber);
+            this.CylinderRotateX.Text = "0.01";
+            this.CylinderRotateX.TextChanged += new System.EventHandler(this.IsNumber);
             // 
             // label2
             // 
@@ -213,13 +216,30 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Y";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.qwdwqdToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(584, 24);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // qwdwqdToolStripMenuItem
+            // 
+            this.qwdwqdToolStripMenuItem.Name = "qwdwqdToolStripMenuItem";
+            this.qwdwqdToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.qwdwqdToolStripMenuItem.Text = "qwdwqd";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 301);
+            this.ClientSize = new System.Drawing.Size(584, 330);
             this.Controls.Add(this.View);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.menuStrip1);
             this.Name = "Form1";
             this.Text = "짱지환짱";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Release);
@@ -229,7 +249,10 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -251,6 +274,8 @@
         private System.Windows.Forms.TextBox CylinderPosX;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem qwdwqdToolStripMenuItem;
     }
 }
 

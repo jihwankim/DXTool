@@ -7,84 +7,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 
 namespace Tool
 {
     public partial class Form1 : Form
     {
-        // Core Project에서 빌드한 DLL을 이용해 외부 함수 사용을 위한 클래스
-        public class DirectX
-        {
-            // Calling Convention을 맞춰준다
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void InitD3D(Int32 hWnd);
-
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void Cleanup();
-
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void InitGeometry();
-
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern bool BeginScene();
-
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void EndScene();
-
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void SetupLights();
-
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void SetupMatrices(float tx, float ty, float tz, float rx, float ry, float rz);
-
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void SetupCamera();
-
-            [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern void DrawCylinder();
-        }
-
-        bool IsRunning = true;
+        bool g_IsRunning = true;
+        CAMERA g_camera = new CAMERA(0.0f, 3.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
         public Form1()
         {
+            
             InitializeComponent();
 
             DirectX.InitD3D(this.View.Handle.ToInt32());
             DirectX.InitGeometry();
+            
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(panel1_MouseWheel);
 
             Render();
+        }
+        private void panel1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta / 120 > 0)//위로
+                g_camera.EYE.z += (g_camera.EYE.z < -1.0f) ? 1 : 0;
+            else //아래로
+                g_camera.EYE.z -= (g_camera.EYE.z > -50.0f) ? 1 : 0;
         }
 
         private float GetNumber(object target)
         {
-            if (((TextBox)target).TextLength == 0)
-                 ((TextBox)target).Text = "0";
+            float result;
 
-            return Convert.ToSingle(((TextBox)target).Text) / 100.0f;
+            try
+            {
+                result = Convert.ToSingle(((TextBox)target).Text);
+            }catch
+            {
+                ((TextBox)target).Text = "0";
+                result = 0;
+            }
+
+            return result;
         }
 
         private async void Render()
         {
             D3DObject Cylinder = new D3DObject(0);
 
-            while(IsRunning)
+            while(g_IsRunning)
             {
-                Cylinder.tx = GetNumber(CylinderPosX);
-                Cylinder.ty = GetNumber(CylinderPosY);
-                Cylinder.tz = GetNumber(CylinderPosZ);
-
-                Cylinder.rx += GetNumber(CylinderRotateX);
-                Cylinder.ry += GetNumber(CylinderRotateY);
-                Cylinder.rz += GetNumber(CylinderRotateZ);
+                Cylinder.Rotate(GetNumber(CylinderRotateX), GetNumber(CylinderRotateY), GetNumber(CylinderRotateZ));
+                Cylinder.Translaste(GetNumber(CylinderPosX), GetNumber(CylinderPosY), GetNumber(CylinderPosZ));
                 
                 DirectX.BeginScene();
 
-                DirectX.SetupCamera();
+                DirectX.SetupCamera(g_camera);
                 DirectX.SetupLights();
-                DirectX.SetupMatrices(Cylinder.tx, Cylinder.ty, Cylinder.tz, Cylinder.rx, Cylinder.ry, Cylinder.rz);
-
+                DirectX.SetupMatrices(Cylinder);
                 DirectX.DrawCylinder();
 
                 DirectX.EndScene();
@@ -93,30 +73,19 @@ namespace Tool
             }
         }
 
-        private void IsNumber(object sender, KeyPressEventArgs e)
-        {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != Convert.ToChar(Keys.Back))
-                e.Handled = true;        
-        }
-
         private void Release(object sender, FormClosingEventArgs e)
         {
-            IsRunning = false;
+            g_IsRunning = false;
             DirectX.Cleanup();
         }
-    }
 
-    public class D3DObject
-    {
-        public D3DObject(int _index)
+        private void IsNumber(object sender, EventArgs e)
         {
-            index = _index;
-            tx = ty = tz = 0.0f;
-            rx = ry = rz = 0.0f;
+            float result;
+            if( float.TryParse(((TextBox)sender).Text, out result) == true )
+                Convert.ToDouble(((TextBox)sender).Text);
+            else
+                ((TextBox)sender).Undo();
         }
-
-        public int index;
-        public float tx, ty, tz;
-        public float rx, ry, rz;
     }
 }

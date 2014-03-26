@@ -164,31 +164,21 @@ VOID SetupMatrices(float tx, float ty, float tz, float rx, float ry, float rz)
 	MatrixRotate(&matRot, rx, ry, rz);
 	D3DXMatrixMultiply(&matWorld, &matWorld, &matRot);
 
-// 	D3DXMatrixRotationX(&matRot, rx * timeGetTime()/1000.f);
-// 	D3DXMatrixMultiply(&matWorld, &matWorld, &matRot);
-// 
-// 	D3DXMatrixRotationY(&matRot, ry * timeGetTime() / 1000.f);
-// 	D3DXMatrixMultiply(&matWorld, &matWorld, &matRot);
-// 
-// 	D3DXMatrixRotationZ(&matRot, rz * timeGetTime() / 1000.f);
-// 	D3DXMatrixMultiply(&matWorld, &matWorld, &matRot);
-// 
 	D3DXMatrixTranslation(&matTrans, tx, ty, tz);
 	D3DXMatrixMultiply(&matWorld, &matTrans, &matWorld);
 
-	//D3DXMatrixRotationX(&matWorld, timeGetTime() / 500.0f);
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld);	
 }
 
-void SetupCamera()
+void SetupCamera(float ex, float ey, float ez, float lx, float ly, float lz, float ux, float uy, float uz)
 {
 	// Set up our view matrix. A view matrix can be defined given an eye point,
 	// a point to lookat, and a direction for which way is up. Here, we set the
 	// eye five units back along the z-axis and up three units, look at the
 	// origin, and define "up" to be in the y-direction.
-	D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
-	D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
-	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
+	D3DXVECTOR3 vEyePt(ex, ey, ez);//(0.0f, 3.0f, -5.0f);
+	D3DXVECTOR3 vLookatPt(lx, ly, lz);// (0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 vUpVec(ux, uy, uz);// (0.0f, 1.0f, 0.0f);
 	D3DXMATRIXA16 matView;
 	D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
 	g_pd3dDevice->SetTransform(D3DTS_VIEW, &matView);
